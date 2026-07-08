@@ -1,0 +1,188 @@
+{% if messages %}
+
+<style>
+    .custom-alert {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 15px 20px;
+        margin: 20px 0;
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: 600;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        animation: slideDown 0.5s ease;
+        position: relative;
+        transition: all 0.3s ease;
+    }
+
+
+    .custom-alert-success {
+        background: #d1fae5;
+        color: #065f46;
+        border-left: 5px solid #10b981;
+    }
+
+
+    .custom-alert-error,
+    .custom-alert-danger {
+        background: #fee2e2;
+        color: #991b1b;
+        border-left: 5px solid #ef4444;
+    }
+
+
+    .custom-alert-warning {
+        background: #fef3c7;
+        color: #92400e;
+        border-left: 5px solid #f59e0b;
+    }
+
+
+    .custom-alert-info {
+        background: #dbeafe;
+        color: #1e40af;
+        border-left: 5px solid #3b82f6;
+    }
+
+
+    .alert-icon {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255,255,255,0.7);
+        font-size: 20px;
+        flex-shrink: 0;
+    }
+
+
+    .alert-message {
+        flex: 1;
+    }
+
+
+    .alert-close {
+        border: none;
+        background: transparent;
+        font-size: 25px;
+        cursor: pointer;
+        color: inherit;
+        opacity: 0.6;
+        line-height: 1;
+    }
+
+
+    .alert-close:hover {
+        opacity: 1;
+    }
+
+
+    @keyframes slideDown {
+
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    }
+
+
+    .hide-alert {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+</style>
+
+
+
+{% for message in messages %}
+
+<div class="custom-alert custom-alert-{{ message.tags }} alert-box">
+
+
+    <div class="alert-icon">
+
+        {% if message.tags == 'success' %}
+            ✓
+
+        {% elif message.tags == 'error' or message.tags == 'danger' %}
+            !
+
+        {% elif message.tags == 'warning' %}
+            !
+
+        {% else %}
+            i
+
+        {% endif %}
+
+    </div>
+
+
+    <div class="alert-message">
+        {{ message }}
+    </div>
+
+
+    <button type="button" class="alert-close">
+        &times;
+    </button>
+
+
+</div>
+
+
+{% endfor %}
+
+
+
+<script>
+
+    // Close button functionality
+    document.querySelectorAll('.alert-close').forEach(function(button){
+
+        button.addEventListener('click', function(){
+
+            let alertBox = this.closest('.alert-box');
+
+            alertBox.classList.add('hide-alert');
+
+            setTimeout(function(){
+                alertBox.remove();
+            },300);
+
+        });
+
+    });
+
+
+
+    // Auto hide after 5 seconds
+    setTimeout(function(){
+
+        document.querySelectorAll('.alert-box').forEach(function(alert){
+
+            alert.classList.add('hide-alert');
+
+            setTimeout(function(){
+                alert.remove();
+            },300);
+
+        });
+
+    },5000);
+
+
+</script>
+
+
+{% endif %}
