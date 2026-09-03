@@ -1,6 +1,7 @@
 
 from django.shortcuts import render, redirect
 
+from accounts.utils import detectUserRole
 from vendor.forms import VendorForm
 from .forms import UserForm
 
@@ -11,13 +12,39 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 
+from django.contrib.auth.decorators import login_required,user_passes_test
+
+from django.core.exceptions import PermissionDenied
+
+
+
+
+#restrict the vendor to access the customer dashboard
+
+def check_role_vendor(user):
+    
+    if user.role == 1:
+        return True
+    else:
+        raise PermissionDenied('You are not authorized to access this page.')
+
+
+#restrict the customer to access the vendor dashboard
+def check_role_customer(user):
+    
+    if user.role == 2:
+        return True
+    else:
+        raise PermissionDenied('You are not authorized to access this page.')
+
+
 
 def register(request):
 
     
     if request.user.is_authenticated:
         messages.warning(request, 'You are already logged in.')
-        return redirect('dashboard')
+        return redirect('myAccount')
 
     if request.method == 'POST':
 
@@ -66,7 +93,7 @@ def register_vendor(request):
 
     if request.user.is_authenticated:
         messages.warning(request, 'You are already logged in.')
-        return redirect('dashboard')
+        return redirect('myAccount')
 
     if request.method == 'POST':
 
@@ -140,7 +167,7 @@ def login(request):
 
     # Already logged-in user should go to dashboard
     if request.user.is_authenticated:
-        return redirect('dashboard')
+        return redirect('myAccount')
 
     if request.method == 'POST':
 
@@ -162,7 +189,7 @@ def login(request):
                 'You have successfully logged in.'
             )
 
-            return redirect('dashboard')
+            return redirect('myAccount')
 
         else:
 
@@ -196,4 +223,30 @@ def dashboard(request):
     return render(
         request,
         'accounts/dashboard.html'
+    )
+
+
+@login_required(login_url='login')
+def myAccount(request):
+
+    user = request.user
+    redirectUrl = detectUserRole(user)
+    return redirect(redirectUrl)
+
+@login_required(login_url='login')
+@user_passes_test(check_role_customer)
+def customerDashboard(request):
+
+    return render(
+        request,
+        'accounts/customerDashboard.html'
+    )
+
+@login_required(login_url='login')
+@user_passes_test(check_role_vendor)
+def vendorDashboard(request):
+
+    return render(
+        request,
+        'accounts/vendorDashboard.html'
     )

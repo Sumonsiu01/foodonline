@@ -40,7 +40,7 @@
                           
 
                             {% if user.is_authenticated %}
-                                <a href="{% url 'dashboard' %}" class="cs-color cs-popup-joinus-btn login-popup">My Account</a>
+                                <a href="{% url 'myAccount' %}" class="cs-color cs-popup-joinus-btn login-popup">My Account</a>
                                 <a href="{% url 'logout' %}" class="cs-color cs-popup-joinus-btn login-popup ml-0" style="color: #dc3545 !important">Logout</a>
                             {% else %}
                                 <a class="cs-color cs-popup-joinus-btn login-popup" href="{% url 'login' %}">Login</a> / 

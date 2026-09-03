@@ -78,15 +78,23 @@ class User(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
 
-    bojects = UseManager()
+    objects = UseManager()
 
     def __str__(self):
         return self.email  
     def has_perm(self, perm, obj=None):
         return self.is_admin
-    def has_module_perms(self, add_label):
+    def has_module_perms(self, app_label):
         return True
-    
+
+    def get_role(self):
+     if self.role == self.VENDOR:
+        return 'Vendor'
+     elif self.role == self.CUSTOMER:
+        return 'Customer'
+     return ''
+
+        
 
 
 class UserProfile(models.Model):
