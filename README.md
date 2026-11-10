@@ -45,5 +45,5 @@ Ensure you have the following installed on your local system:
 
 1. **Clone the Repository**
    ```bash
-   git clone [https://github.com/your-username/foodonline-django.git](https://github.com/your-username/foodonline-django.git)
+   git clone [https://github.com/Sumonsiu01/foodonline.git](https://github.com/your-username/foodonline-django.git)
    cd foodonline-django
