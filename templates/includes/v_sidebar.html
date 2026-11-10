@@ -1,0 +1,55 @@
+<div class="user-account-nav user-account-sidebar">
+  <div class="user-nav-list">
+    <ul>
+      <!-- Dashboard -->
+      <li
+        class="{% if request.resolver_match.url_name == 'vendorDashboard' %}active{% endif %}"
+      >
+        <a href="{% url 'vendorDashboard' %}"
+          ><i class="icon-dashboard3"></i>Dashboard</a
+        >
+      </li>
+
+      <!-- My Restaurant Profile -->
+      <li
+        class="{% if request.resolver_match.url_name == 'vprofile' %}active{% endif %}"
+      >
+        <a href="{% url 'vprofile' %}"
+          ><i class="icon-building"></i>My Restaurant</a
+        >
+      </li>
+
+      <!-- Menu Builder (Fixed Missing <a> Tag) -->
+      <li>
+        <a href="#"><i class="icon-menu5"></i>Menu Builder</a>
+      </li>
+
+      <!-- Orders (Fixed Missing <a> Tag) -->
+      <li>
+        <a href="#"><i class="icon-add_shopping_cart"></i>Orders</a>
+      </li>
+
+      <!-- Earnings -->
+      <li>
+        <a href="#"><i class="icon-money"></i>Earnings</a>
+      </li>
+
+      <!-- Statement -->
+      <li>
+        <a href="#"><i class="icon-file-text22"></i>Statement</a>
+      </li>
+
+      <!-- Change Password -->
+      <li>
+        <a href="#"><i class="icon-unlock-alt"></i>Change Password</a>
+      </li>
+
+      <!-- Signout -->
+      <li>
+        <a class="logout-btn" href="{% url 'logout' %}"
+          ><i class="icon-log-out"></i>Signout</a
+        >
+      </li>
+    </ul>
+  </div>
+</div>

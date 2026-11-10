@@ -10,6 +10,7 @@ from accounts.utils import detectUserRole, send_verification_email, send_passwor
 from vendor.forms import VendorForm
 from .forms import UserForm
 from .models import User, UserProfile
+from vendor.models import Vendor
 
 
 # Role check functions
