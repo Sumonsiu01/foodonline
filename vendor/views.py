@@ -4,10 +4,20 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 
 from accounts.forms import UserProfileForm
 from accounts.models import UserProfile
+from menu.models import Category, FoodItem
 from vendor.forms import VendorForm
 from vendor.models import Vendor
 from accounts.views import check_role_vendor
 
+
+def get_vendor(request):
+    if request.user.is_authenticated:
+        try:
+            vendor = Vendor.objects.get(user=request.user)
+            return vendor
+        except Vendor.DoesNotExist:
+            return {}
+    return {}
 
 @login_required(login_url='login')
 @user_passes_test(check_role_vendor)
@@ -39,3 +49,30 @@ def vprofile(request):
         'profile': profile,
     }
     return render(request, 'vendor/vprofile.html', context)
+
+
+
+@login_required(login_url='login')
+@user_passes_test(check_role_vendor)
+def menu_builder(request):
+    vendor = get_vendor(request)
+    categories = Category.objects.filter(vendor=vendor).order_by('created_at')
+    fooditems = FoodItem.objects.filter(vendor=vendor).order_by('created_at')
+    context = {
+        'vendor': vendor,
+        'categories': categories,
+        'fooditems': fooditems,
+    }   
+    return render(request, 'vendor/menu_builder.html', context)
+@login_required(login_url='login')
+@user_passes_test(check_role_vendor)
+def fooditems_by_category(request, pk):
+    vendor = get_vendor(request)
+    category = get_object_or_404(Category, pk=pk, vendor=vendor)
+    fooditems = FoodItem.objects.filter(vendor=vendor, category=category).order_by('created_at')
+    context = {
+        'vendor': vendor,
+        'category': category,
+        'fooditems': fooditems,
+    }
+    return render(request, 'vendor/fooditems_by_category.html', context)

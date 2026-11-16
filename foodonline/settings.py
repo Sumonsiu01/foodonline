@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     # Custom Apps
     'accounts',
     'vendor',
+    'menu',
 ]
 
 MIDDLEWARE = [

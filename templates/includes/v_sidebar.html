@@ -11,18 +11,14 @@
       </li>
 
       <!-- My Restaurant Profile -->
-      <li
-        class="{% if request.resolver_match.url_name == 'vprofile' %}active{% endif %}"
-      >
-        <a href="{% url 'vprofile' %}"
-          ><i class="icon-building"></i>My Restaurant</a
-        >
-      </li>
+      <li class="{% if request.resolver_match.url_name == 'vprofile' %}active{% endif %}">
+    <a href="{% url 'vprofile' %}"><i class="icon-building"></i>My Restaurant</a>
+</li>
 
-      <!-- Menu Builder (Fixed Missing <a> Tag) -->
-      <li>
-        <a href="#"><i class="icon-menu5"></i>Menu Builder</a>
-      </li>
+<!-- Menu Builder (Active class added for main & sub-routes) -->
+<li class="{% if 'menu-builder' in request.path %}active{% endif %}">
+    <a href="{% url 'menu_builder' %}"><i class="icon-menu5"></i>Menu Builder</a>
+</li>
 
       <!-- Orders (Fixed Missing <a> Tag) -->
       <li>
