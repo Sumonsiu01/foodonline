@@ -14,6 +14,9 @@ class Vendor(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
+
+    
+
     def __str__(self):
         return self.vendor_name
 

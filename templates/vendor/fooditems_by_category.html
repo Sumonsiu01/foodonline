@@ -95,11 +95,58 @@
                             <hr/>
 
                             <div class="menu-action-bar">
+                               <style>
+    a.fb-back-btn {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        padding: 9px 18px !important;
+        font-size: 13.5px !important;
+        font-weight: 600 !important;
+        color: #333333 !important;
+        background-color: #ffffff !important;
+        border: 1.5px solid #dcdde1 !important;
+        border-radius: 6px !important;
+        text-decoration: none !important;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06) !important;
+        transition: all 0.25s ease !important;
+        cursor: pointer !important;
+    }
+
+    a.fb-back-btn svg {
+        width: 15px !important;
+        height: 15px !important;
+        stroke: #555555 !important;
+        transition: transform 0.25s ease, stroke 0.25s ease !important;
+    }
+
+    a.fb-back-btn:hover {
+        color: #c33332 !important;
+        background-color: #fff5f5 !important;
+        border-color: #c33332 !important;
+        box-shadow: 0 4px 12px rgba(195, 51, 50, 0.15) !important;
+    }
+
+    a.fb-back-btn:hover svg {
+        stroke: #c33332 !important;
+        transform: translateX(-4px) !important;
+    }
+</style>
+
+<a href="{% url 'menu_builder' %}" class="fb-back-btn">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+    </svg>
+    <span>Back</span>
+</a>
+                                <br><br>
                                 <h6 class="mb-0">Category: <span class="text-uppercase text-success">{{ category }}</span></h6>
                                 <div class="d-flex gap-2">
-                                    <button type="button" class="btn-modern btn-modern-primary" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
-                                        <i class="fa fa-plus-circle"></i> Add Category
-                                    </button>
+                                    
+                                    <a href="{% url 'add_category' %}" class="btn-modern btn-modern-primary text-decoration-none">
+                                    <i class="fa fa-plus-circle"></i> Add Category</a>
+
                                     <button type="button" class="btn-modern btn-modern-secondary" data-bs-toggle="modal" data-bs-target="#addItemModal">
                                         <i class="fa fa-utensils"></i> Add Item
                                     </button>

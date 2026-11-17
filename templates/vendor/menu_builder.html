@@ -72,12 +72,12 @@
 <div class="menu-action-bar">
     <h6 >Category: <span class = "text-uppercase text-success">{{ category}}</span></h6>
     <div class="d-flex gap-2">
-        <button type="button" class="btn-modern btn-modern-primary" data-bs-toggle="modal" data-bs-target="#addCategoryModal">
-            <i class="fa fa-plus-circle"></i> Add Category
-        </button>
-        <button type="button" class="btn-modern btn-modern-secondary" data-bs-toggle="modal" data-bs-target="#addItemModal">
-            <i class="fa fa-utensils"></i> Add Item
-        </button>
+       <a href="{% url 'add_category' %}" class="btn-modern btn-modern-primary text-decoration-none">
+    <i class="fa fa-plus-circle"></i> Add Category
+</a>
+<a href="#" class="btn-modern btn-modern-secondary text-decoration-none">
+    <i class="fa fa-utensils"></i> Add Item
+</a>
     </div>
 </div>
 <hr style="border-top: 1px solid #eee; margin-top: 0;" />
@@ -131,10 +131,27 @@
                 <small class="text-muted">{{ category.description }}</small>
             </a>
         </td>
-        <td class="text-end">
-            <a href="#" class="btn btn-sm btn-outline-primary me-2">Edit</a>
-            <a href="#" class="btn btn-sm btn-outline-danger">Delete</a>
-        </td>
+       <td class="text-end">
+    <a href="{% url 'edit_category' category.id %}" class="btn btn-sm btn-outline-primary me-2 d-inline-flex align-items-center gap-1">
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+        </svg>
+        <span>Edit</span>
+    </a>
+
+  <a href="{% url 'delete_category' category.id %}" 
+   onclick="return confirm('Are you sure you want to delete this category? All food items under this category will also be deleted!');" 
+   class="btn btn-sm btn-outline-danger d-inline-flex align-items-center gap-1">
+    <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="3 6 5 6 21 6"></polyline>
+        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+        <line x1="10" y1="11" x2="10" y2="17"></line>
+        <line x1="14" y1="11" x2="14" y2="17"></line>
+    </svg>
+    <span>Delete</span>
+</a>
+</td>
     </tr>
     {% endfor %}
 </tbody>
